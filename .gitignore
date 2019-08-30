@@ -1,0 +1,12 @@
+# Ignore Gradle project-specific cache directory
+
+
+# Ignore Gradle build output directory
+
+.DS_Store
+bin
+build
+target
+*.war
+.gradle
+.classpath
