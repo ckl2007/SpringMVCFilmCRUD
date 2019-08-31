@@ -78,6 +78,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			st.setInt(4, film.getLanguage_id());
 			st.executeUpdate();
 
+			@SuppressWarnings("unused")
 			int uc = st.executeUpdate();
 			ResultSet keys = st.getGeneratedKeys();
 

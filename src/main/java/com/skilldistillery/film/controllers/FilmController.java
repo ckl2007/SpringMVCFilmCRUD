@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.film.database.DatabaseAccessor;
 import com.skilldistillery.film.entities.Film;
@@ -45,23 +46,32 @@ public class FilmController {
 		return mv;
 	}
 	
+	@RequestMapping(path="filmAdded.do", method=RequestMethod.GET)
+	public ModelAndView stateAdded() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/result.jsp");
+		return mv;
+		
+	}
 	
 	@RequestMapping(path="createFilm.do", method=RequestMethod.POST)
-	public ModelAndView createFilm(Film f) {
+	public ModelAndView createFilm(Film f, RedirectAttributes redir) {
 		dao.addFilm(f);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("film", f);
-		mv.setViewName("WEB-INF/result.jsp");
+		redir.addFlashAttribute("film",f);
+		mv.setViewName("redirect:filmAdded.do");
 		return mv;
 	}
 	
 	//initial index will have form to search by film id or keyword 
 
 	//User story 1 Call DAO  view film details  and display error message if film not found
-	//Controller method- controller needs to implement DAO  
+	//Controller method- controller needs to implement DAO  DONE
 	
 	//User story 2 User chooses to add new film. JSP shows form to input film details     --
 	// In DAO do insert method to save the created film. Failure will show err message to user
+	//User Story 2 needs error message handling
+	
 	
 	//User Story 3 user retrieves a film, they have the option of deleting it. --
 	//If they delete the film, it is removed from the database.

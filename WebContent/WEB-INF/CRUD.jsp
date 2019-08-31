@@ -10,20 +10,15 @@
 </head>
 <body>
 
-	<c:if test="${empty film }"> Film Not Found</c:if>
+<c:if test="${empty film }"> Film Not Found</c:if>
 
 	${film}
-	<form method="get" action="createFilm.do">
-		<button type="submit">Edit Film Data</button>
-	</form>
+
 	<c:choose>
 		<c:when test="${not empty filmList}">
 			<ul>
 				<c:forEach var="film" items="${filmList }">
 					<li>${film.title }</li>
-					<form method="get" action="createFilm.do">
-						<button type="submit">Edit Film Data</button>
-					</form>
 
 				</c:forEach>
 			</ul>
