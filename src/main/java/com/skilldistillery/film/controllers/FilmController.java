@@ -47,7 +47,7 @@ public class FilmController {
 	}
 	
 	@RequestMapping(path="filmAdded.do", method=RequestMethod.GET)
-	public ModelAndView stateAdded() {
+	public ModelAndView filmAdded() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
@@ -62,6 +62,14 @@ public class FilmController {
 		mv.setViewName("redirect:filmAdded.do");
 		return mv;
 	}
+	@RequestMapping(path="editFilm.do", method=RequestMethod.GET)
+	public ModelAndView editFilm(Film f) {
+		ModelAndView mv = new ModelAndView();
+		dao.updateFilm(f);
+		mv.addObject("film", f);
+		mv.setViewName("WEB-INF/CRUD.jsp");
+		return mv;
+	}
 	
 	//initial index will have form to search by film id or keyword 
 
@@ -70,7 +78,7 @@ public class FilmController {
 	
 	//User story 2 User chooses to add new film. JSP shows form to input film details     --
 	// In DAO do insert method to save the created film. Failure will show err message to user
-	
+	//handle year out of range
 	
 	
 	//User Story 3 user retrieves a film, they have the option of deleting it. --

@@ -79,8 +79,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			st.setInt(4, film.getLanguage_id());
 			st.executeUpdate();
 
-			@SuppressWarnings("unused")
-			int uc = st.executeUpdate();
 			ResultSet keys = st.getGeneratedKeys();
 
 			if (keys.next()) {
@@ -190,6 +188,54 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 		return actors;
 	}
+
+	@Override
+	public void updateFilm(Film film) {
+		Connection conn = null;
+		String sqltxt = "update film set title = ?, description = ?, release_year = ?, language_id = ?, rental_duration = ?"
+				+ ", rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, special_features = (?) where id = ?";
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			PreparedStatement st = conn.prepareStatement(sqltxt, Statement.RETURN_GENERATED_KEYS);
+
+			st.setString(1, film.getTitle());
+			st.setString(2, film.getDescription());
+			st.setInt(3, film.getRelease_year());
+			st.setInt(4, film.getLanguage_id());
+			st.setInt(5, film.getRental_duration());
+			st.setDouble(6, film.getRental_rate());
+			st.setInt(7, film.getLength());
+			st.setDouble(8, film.getReplacement_cost());
+			st.setString(9, film.getRating());
+			st.setString(10, film.getSpecial_features());
+			st.setInt(11, film.getId());
+			st.executeUpdate();
+
+			ResultSet keys = st.getGeneratedKeys();
+
+			if (keys.next()) {
+				System.out.println("ID: " + keys.getInt(1));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				conn.commit();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+		
+	
 
 //	private Map<Integer, Map<Integer, String>> inventoryMaps(int filmId) {
 //		Map<Integer, Map<Integer, String>> locsInventory = new HashMap<>();

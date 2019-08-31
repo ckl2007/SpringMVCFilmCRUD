@@ -15,5 +15,6 @@ public interface DatabaseAccessor {
 	public int  addFilm(Film film);
 //	public Map<String, Double> filmReplacementCost();
 //	public void addActor(String fname, String lname);
+	public void updateFilm(Film f);
 
 }
