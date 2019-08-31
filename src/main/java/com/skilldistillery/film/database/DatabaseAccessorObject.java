@@ -191,6 +191,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	public void updateFilm(Film film) {
+		
+		boolean update = false;
 		Connection conn = null;
 		String sqltxt = "update film set title = ?, description = ?, release_year = ?, language_id = ?, rental_duration = ?"
 				+ ", rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, special_features = (?) where id = ?";

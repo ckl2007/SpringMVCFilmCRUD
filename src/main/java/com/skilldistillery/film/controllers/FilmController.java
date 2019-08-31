@@ -68,7 +68,7 @@ public class FilmController {
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
 	}
-	@RequestMapping(path="filmEdited.do", method=RequestMethod.PUT)
+	@RequestMapping(path="filmEdited.do", method=RequestMethod.POST)
 	public ModelAndView editedFilm(Film f) {
 		dao.updateFilm(f);
 		System.out.println(f);
