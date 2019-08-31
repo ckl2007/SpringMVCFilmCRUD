@@ -1,9 +1,11 @@
 package com.skilldistillery.film.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,26 +48,40 @@ public class FilmController {
 		return mv;
 	}
 	
-	@RequestMapping(path="filmAdded.do", method=RequestMethod.GET)
-	public ModelAndView filmAdded() {
+//	@RequestMapping(path="filmAdded.do", method=RequestMethod.GET)
+//	public ModelAndView filmAdded(@ModelAttribute("newFilm")Film f) {
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println(f);
+//		mv.addObject("film", f);
+//		mv.setViewName("WEB-INF/result.jsp");
+//		return mv;
+//		
+//	}
+	
+//		redir.addFlashAttribute("newFilm",f);
+	@RequestMapping(path="createFilm.do", method=RequestMethod.POST)
+	public ModelAndView createFilm(Film f) {
+		f.setId(dao.addFilm(f));
+		System.out.println(f);
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
-		
 	}
-	
-	@RequestMapping(path="createFilm.do", method=RequestMethod.POST)
-	public ModelAndView createFilm(Film f, RedirectAttributes redir) {
-		f.setId(dao.addFilm(f));
+	@RequestMapping(path="filmEdited.do", method=RequestMethod.PUT)
+	public ModelAndView editedFilm(Film f) {
+		dao.updateFilm(f);
+		System.out.println(f);
 		ModelAndView mv = new ModelAndView();
-		redir.addFlashAttribute("film",f);
-		mv.setViewName("redirect:filmAdded.do");
+		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
 	}
 	@RequestMapping(path="editFilm.do", method=RequestMethod.GET)
 	public ModelAndView editFilm(Film f) {
 		ModelAndView mv = new ModelAndView();
-		dao.updateFilm(f);
+		f = dao.findFilmById(f.getId());
+//		dao.updateFilm(f);
+		System.out.println(f);
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/CRUD.jsp");
 		return mv;
