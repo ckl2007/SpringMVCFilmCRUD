@@ -22,6 +22,7 @@ public class Film {
 	private List<Actor> actors;
 	private String category;
 	private int language_id;
+	private int category_id;
 //	private Map<Integer, Map<Integer, String>> locationsWithCondition = new HashMap<>();
 
 	public Film(int id, String title, String description, int release_year, String language_id, int rental_duration,
@@ -264,6 +265,14 @@ public class Film {
 
 	public void setLanguage_id(int language_id) {
 		this.language_id = language_id;
+	}
+
+	public int getCategory_id() {
+		return category_id;
+	}
+
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
 	}
 	
 

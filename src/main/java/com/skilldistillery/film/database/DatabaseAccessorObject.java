@@ -62,12 +62,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 		return film;
 	}
-
+//                  
 	public int addFilm(Film film) {
-		String sql = "insert into film (title, description, release_year, language_id) "
-				+ "VALUES (?, ?, ?, ?)";
+		String sql = "insert into film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
-		int keyval=0;
+		int keyval = 0;
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // Start transaction
@@ -77,15 +77,37 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			st.setString(2, film.getDescription());
 			st.setInt(3, film.getRelease_year());
 			st.setInt(4, film.getLanguage_id());
+			st.setInt(5, film.getRental_duration());
+			st.setDouble(6, film.getRental_rate());
+			st.setInt(7, film.getLength());
+			st.setDouble(8, film.getReplacement_cost());
+			st.setString(9, film.getRating());
+			st.setString(10, film.getSpecial_features());
 			st.executeUpdate();
 
 			ResultSet keys = st.getGeneratedKeys();
-
 			if (keys.next()) {
-				System.out.println("ID: " + keys.getInt(1));
+				keyval = keys.getInt(1);
+                int newFilmId = keys.getInt(1);
+//                film.setId(newFilmId);
+                List<Actor> actors = findActorsByFilmId(newFilmId);
+                if (actors != null && actors.size() > 0) {
+                    sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
+                    st = conn.prepareStatement(sql);
+                    for (Actor actor : actors) {
+                        st.setInt(1, newFilmId);
+                        st.setInt(2, actor.getId());
+                        st.executeUpdate();
+                    }
+                }
+                if(film.getCategory_id() != 0) {
+                    sql = "INSERT INTO film_category (film_id, category_id) VALUES (?,?)";
+                    st = conn.prepareStatement(sql);
+                    st.setInt(1, newFilmId);
+                    st.setInt(2, film.getCategory_id());
+                    st.executeUpdate();
+                }
 			}
-			keyval = keys.getInt(1);
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			try {
@@ -104,6 +126,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return keyval;
 	}
 
+	private String getCategories() {
+	// TODO Auto-generated method stub
+	return null;
+}
 	public List<Film> findFilmsByWord(String keyword) {
 		Film film = null;
 		List<Film> films = new ArrayList<>();
@@ -191,7 +217,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	public void updateFilm(Film film) {
-		
+
 		boolean update = false;
 		Connection conn = null;
 		String sqltxt = "update film set title = ?, description = ?, release_year = ?, language_id = ?, rental_duration = ?"
@@ -236,8 +262,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			}
 		}
 	}
-		
-	
 
 //	private Map<Integer, Map<Integer, String>> inventoryMaps(int filmId) {
 //		Map<Integer, Map<Integer, String>> locsInventory = new HashMap<>();
