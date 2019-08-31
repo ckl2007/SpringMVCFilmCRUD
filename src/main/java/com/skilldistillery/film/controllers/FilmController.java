@@ -56,7 +56,7 @@ public class FilmController {
 	
 	@RequestMapping(path="createFilm.do", method=RequestMethod.POST)
 	public ModelAndView createFilm(Film f, RedirectAttributes redir) {
-		dao.addFilm(f);
+		f.setId(dao.addFilm(f));
 		ModelAndView mv = new ModelAndView();
 		redir.addFlashAttribute("film",f);
 		mv.setViewName("redirect:filmAdded.do");
@@ -70,7 +70,7 @@ public class FilmController {
 	
 	//User story 2 User chooses to add new film. JSP shows form to input film details     --
 	// In DAO do insert method to save the created film. Failure will show err message to user
-	//User Story 2 needs error message handling
+	
 	
 	
 	//User Story 3 user retrieves a film, they have the option of deleting it. --

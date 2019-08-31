@@ -63,10 +63,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return film;
 	}
 
-	public void addFilm(Film film) {
+	public int addFilm(Film film) {
 		String sql = "insert into film (title, description, release_year, language_id) "
 				+ "VALUES (?, ?, ?, ?)";
 		Connection conn = null;
+		int keyval=0;
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // Start transaction
@@ -85,6 +86,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			if (keys.next()) {
 				System.out.println("ID: " + keys.getInt(1));
 			}
+			keyval = keys.getInt(1);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,6 +103,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				e.printStackTrace();
 			}
 		}
+		return keyval;
 	}
 
 	public List<Film> findFilmsByWord(String keyword) {

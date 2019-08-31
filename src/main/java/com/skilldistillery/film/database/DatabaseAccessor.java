@@ -12,7 +12,7 @@ public interface DatabaseAccessor {
 	public List<Film> findFilmsByWord(String keyword);
 	public Actor findActorById(int actorId);
 	public List<Actor> findActorsByFilmId(int filmId);
-	public void  addFilm(Film film);
+	public int  addFilm(Film film);
 //	public Map<String, Double> filmReplacementCost();
 //	public void addActor(String fname, String lname);
 
