@@ -1,4 +1,4 @@
-package com.skilldistillery.filmquery.database;
+package com.skilldistillery.film.database;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,8 @@ public interface DatabaseAccessor {
 	public List<Film> findFilmsByWord(String keyword);
 	public Actor findActorById(int actorId);
 	public List<Actor> findActorsByFilmId(int filmId);
-	public Map<String, Double> filmReplacementCost();
-	public void addActor(String fname, String lname);
+	public void  addFilm(Film film);
+//	public Map<String, Double> filmReplacementCost();
+//	public void addActor(String fname, String lname);
 
 }

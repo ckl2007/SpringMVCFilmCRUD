@@ -1,4 +1,4 @@
-package com.skilldistillery.filmquery.database;
+package com.skilldistillery.film.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,15 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.springframework.stereotype.Component;
 
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 
+@Component
 public class DatabaseAccessorObject implements DatabaseAccessor {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
 	private static final String user = "student";
@@ -56,13 +54,52 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setLanguage(rs.getString(5));
 				film.setCategory(rs.getString("category.name"));
 				film.setActors(findActorsByFilmId(filmId));
-				film.setLocationsWithCondition(inventoryMaps(film.getId()));
+//				film.setLocationsWithCondition(inventoryMaps(film.getId()));
 			}
 
 		} catch (SQLException e) {
 			System.err.println(e);
 		}
 		return film;
+	}
+
+	public void addFilm(Film film) {
+		String sql = "insert into film (title, description, release_year, language_id) "
+				+ "VALUES (?, ?, ?, ?)";
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			st.setString(1, film.getTitle());
+			st.setString(2, film.getDescription());
+			st.setInt(3, film.getRelease_year());
+			st.setInt(4, 1);
+			st.executeUpdate();
+
+			int uc = st.executeUpdate();
+			ResultSet keys = st.getGeneratedKeys();
+
+			if (keys.next()) {
+				System.out.println("ID: " + keys.getInt(1));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				conn.commit();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public List<Film> findFilmsByWord(String keyword) {
@@ -94,7 +131,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setSpecial_features(rs.getString("special_features"));
 				film.setLanguage(rs.getString("language.name"));
 				film.setCategory(rs.getString("category.name"));
-				film.setLocationsWithCondition(inventoryMaps(film.getId()));
+//				film.setLocationsWithCondition(inventoryMaps(film.getId()));
 				films.add(film);
 
 			}
@@ -150,103 +187,104 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return actors;
 	}
 
-	private Map<Integer, Map<Integer, String>> inventoryMaps(int filmId) {
-		Map<Integer, Map<Integer, String>> locsInventory = new HashMap<>();
-		Map<Integer, String> invIdMedia = new HashMap<>();
-		Set<Integer> storeSet = new HashSet<>();
-		int oldStore = 0;
-		String sqltxt = "SELECT * from inventory_item where film_id = ?";
-		try (Connection conn = DriverManager.getConnection(URL, user, pass);
-				PreparedStatement stmt = conn.prepareStatement(sqltxt);) {
-			stmt.setInt(1, filmId);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				int invID = rs.getInt(1);
-				String mediaCond = rs.getString(4);
-				int storeID = rs.getInt(3);
-				if (storeSet.contains(storeID)) {
-					invIdMedia.put(invID, mediaCond);
-					oldStore = storeID;
+//	private Map<Integer, Map<Integer, String>> inventoryMaps(int filmId) {
+//		Map<Integer, Map<Integer, String>> locsInventory = new HashMap<>();
+//		Map<Integer, String> invIdMedia = new HashMap<>();
+//		Set<Integer> storeSet = new HashSet<>();
+//		int oldStore = 0;
+//		String sqltxt = "SELECT * from inventory_item where film_id = ?";
+//		try (Connection conn = DriverManager.getConnection(URL, user, pass);
+//				PreparedStatement stmt = conn.prepareStatement(sqltxt);) {
+//			stmt.setInt(1, filmId);
+//			ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				int invID = rs.getInt(1);
+//				String mediaCond = rs.getString(4);
+//				int storeID = rs.getInt(3);
+//				if (storeSet.contains(storeID)) {
+//					invIdMedia.put(invID, mediaCond);
+//					oldStore = storeID;
+//
+//				} else {
+//					locsInventory.put(oldStore, invIdMedia);
+//					storeSet.add(storeID);
+//					invIdMedia = new HashMap<>();
+//					invIdMedia.put(invID, mediaCond);
+//
+//				}
+//
+//			}
+//			locsInventory.put(oldStore, invIdMedia);
+//
+//		} catch (SQLException e) {
+//			System.err.println(e);
+//		}
+//		locsInventory.remove(0);
+//		return locsInventory;
+//	}
 
-				} else {
-					locsInventory.put(oldStore, invIdMedia);
-					storeSet.add(storeID);
-					invIdMedia = new HashMap<>();
-					invIdMedia.put(invID, mediaCond);
-
-				}
-
-			}
-			locsInventory.put(oldStore, invIdMedia);
-
-		} catch (SQLException e) {
-			System.err.println(e);
-		}
-		locsInventory.remove(0);
-		return locsInventory;
-	}
-
-	@Override
-	public Map<String, Double> filmReplacementCost() {
-		double totCost = 0;
-		Map<String, Double> replacementList = new HashMap<>();
-		List<Double> replacementCostList = new ArrayList<>();
-		List<String> titleList = new ArrayList<String>();
-		String sqltxt = "select film.title, film.replacement_cost from film";
-		try (Connection conn = DriverManager.getConnection(URL, user, pass);
-				PreparedStatement stmt = conn.prepareStatement(sqltxt);) {
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				titleList.add(rs.getString("title"));
-				replacementCostList.add(rs.getDouble("replacement_cost"));
-			}
-			for (double cost : replacementCostList) {
-				for (String string2 : titleList) {
-					replacementList.put(string2, cost);
-					System.out.println(string2 + ": " + cost);
-				}
-				totCost += cost;
-			}
-			System.out.printf("Total replacement cost : $%.2f", totCost);
-		} catch (SQLException e) {
-			System.err.println(e);
-		}
-		return replacementList;
-	}
-
-	@Override
-	public void addActor(String fName, String lName) {
-		String sqltxt = "INSERT INTO actor(first_name, last_name) values(?,?)";
-		Connection conn = null;
-		try {
-				conn = DriverManager.getConnection(URL, user, pass);
-				PreparedStatement stmt = conn.prepareStatement(sqltxt,Statement.RETURN_GENERATED_KEYS); 
-			stmt.setString(1, fName);
-			stmt.setString(2, lName);
-
-			conn.setAutoCommit(false); // Start transaction
-			int uc = stmt.executeUpdate();
-			ResultSet keys = stmt.getGeneratedKeys();
-			
-			if (keys.next()) {
-				System.out.println("ID: " + keys.getInt(1));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}finally {try {
-            conn.commit();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-		
-	}
+//	@Override
+//	public Map<String, Double> filmReplacementCost() {
+//		double totCost = 0;
+//		Map<String, Double> replacementList = new HashMap<>();
+//		List<Double> replacementCostList = new ArrayList<>();
+//		List<String> titleList = new ArrayList<String>();
+//		String sqltxt = "select film.title, film.replacement_cost from film";
+//		try (Connection conn = DriverManager.getConnection(URL, user, pass);
+//				PreparedStatement stmt = conn.prepareStatement(sqltxt);) {
+//			ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				titleList.add(rs.getString("title"));
+//				replacementCostList.add(rs.getDouble("replacement_cost"));
+//			}
+//			for (double cost : replacementCostList) {
+//				for (String string2 : titleList) {
+//					replacementList.put(string2, cost);
+//					System.out.println(string2 + ": " + cost);
+//				}
+//				totCost += cost;
+//			}
+//			System.out.printf("Total replacement cost : $%.2f", totCost);
+//		} catch (SQLException e) {
+//			System.err.println(e);
+//		}
+//		return replacementList;
+//	}
+//
+//	@Override
+//	public void addActor(String fName, String lName) {
+//		String sqltxt = "INSERT INTO actor(first_name, last_name) values(?,?)";
+//		Connection conn = null;
+//		try {
+//			conn = DriverManager.getConnection(URL, user, pass);
+//			PreparedStatement stmt = conn.prepareStatement(sqltxt, Statement.RETURN_GENERATED_KEYS);
+//			stmt.setString(1, fName);
+//			stmt.setString(2, lName);
+//
+//			conn.setAutoCommit(false); // Start transaction
+//			int uc = stmt.executeUpdate();
+//			ResultSet keys = stmt.getGeneratedKeys();
+//
+//			if (keys.next()) {
+//				System.out.println("ID: " + keys.getInt(1));
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			try {
+//				conn.rollback();
+//			} catch (SQLException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//		} finally {
+//			try {
+//				conn.commit();
+//				conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//	}
 }
