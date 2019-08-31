@@ -75,7 +75,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			st.setString(1, film.getTitle());
 			st.setString(2, film.getDescription());
 			st.setInt(3, film.getRelease_year());
-			st.setInt(4, 1);
+			st.setInt(4, film.getLanguage_id());
 			st.executeUpdate();
 
 			int uc = st.executeUpdate();
