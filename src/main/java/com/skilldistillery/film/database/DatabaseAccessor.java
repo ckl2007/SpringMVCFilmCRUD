@@ -18,5 +18,5 @@ public interface DatabaseAccessor {
 	public void updateFilm(Film f);
 	public Film findCreatedFilmById(int filmId);
 	public List<Film> findCreatedFilmsByWord(String keyword);
-
+	public void deleteFilm(Film film);
 }

@@ -35,6 +35,9 @@ public class FilmController {
 	@RequestMapping(path="searchID.do", params="IDsearch", method=RequestMethod.GET)
 	public ModelAndView getFilmById(int IDsearch) {
 		Film f = null;
+		
+		//User Created films start at 1k and user created films aren't fleshed out into the child tables
+		//To handle this we have a method specifically for searching created films
 		if(IDsearch > 1000) {
 			f = dao.findCreatedFilmById(IDsearch);
 		}
@@ -89,6 +92,7 @@ public class FilmController {
 		f = dao.findFilmById(f.getId());
 //		dao.updateFilm(f);
 		System.out.println(f);
+		mv.addObject("language",f.getLanguage_id());
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/CRUD.jsp");
 		return mv;
@@ -96,7 +100,11 @@ public class FilmController {
 	
 	@RequestMapping(path="deleteFilm.do", method=RequestMethod.DELETE)
 	public ModelAndView deleteFilm(Film f) {
-		return null;
+		dao.deleteFilm(f);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("deletion", new Boolean(true));
+		mv.setViewName("WEB-INF/result.jsp");
+		return mv;
 		
 	}
 	
