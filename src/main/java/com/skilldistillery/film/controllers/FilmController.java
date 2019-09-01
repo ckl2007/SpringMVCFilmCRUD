@@ -35,6 +35,9 @@ public class FilmController {
 	@RequestMapping(path="searchID.do", params="IDsearch", method=RequestMethod.GET)
 	public ModelAndView getFilmById(int IDsearch) {
 		Film f = null;
+		
+		//User Created films start at 1k and user created films aren't fleshed out into the child tables
+		//To handle this we have a method specifically for searching created films
 		if(IDsearch > 1000) {
 			f = dao.findCreatedFilmById(IDsearch);
 		}
@@ -48,7 +51,7 @@ public class FilmController {
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
 	}
-	
+
 	@RequestMapping(path="creationForm.do", method=RequestMethod.GET)
 	public ModelAndView gotoForm() {
 		ModelAndView mv = new ModelAndView();
@@ -57,23 +60,26 @@ public class FilmController {
 		mv.setViewName("WEB-INF/addFilm.jsp");
 		return mv;
 	}
-	
-	@RequestMapping(path="filmAdded.do", method=RequestMethod.GET)
-	public ModelAndView filmAdded(@ModelAttribute("newFilm")Film f) {
-		ModelAndView mv = new ModelAndView();
-		System.out.println(f);
-		mv.addObject("film", f);
-		mv.setViewName("WEB-INF/filmAdded.jsp");
-		return mv;
-		
-	}
-	
+
+//	@RequestMapping(path="filmAdded.do", method=RequestMethod.GET)
+//	public ModelAndView filmAdded(@ModelAttribute("newFilm")Film f) {
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println(f);
+//		mv.addObject("film", f);
+//		mv.setViewName("WEB-INF/result.jsp");
+//		return mv;
+//
+//	}
+
+//		redir.addFlashAttribute("newFilm",f);
 	@RequestMapping(path="createFilm.do", method=RequestMethod.POST)
-	public String createFilm(Film f, RedirectAttributes redir) {
+	public ModelAndView createFilm(Film f) {
 		f.setId(dao.addFilm(f));
 		System.out.println(f);
-		redir.addFlashAttribute("newFilm",f);
-		return "redirect:filmAdded.do";
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("film", f);
+		mv.setViewName("WEB-INF/result.jsp");
+		return mv;
 	}
 	@RequestMapping(path="filmEdited.do", method=RequestMethod.POST)
 	public ModelAndView editedFilm(Film f) {
@@ -89,47 +95,46 @@ public class FilmController {
 		f = dao.findFilmById(f.getId());
 //		dao.updateFilm(f);
 		System.out.println(f);
+		mv.addObject("language",f.getLanguage_id());
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/CRUD.jsp");
 		return mv;
 	}
-	
+
 	@RequestMapping(path="deleteFilm.do", method=RequestMethod.DELETE)
 	public ModelAndView deleteFilm(Film f) {
-		return null;
+		dao.deleteFilm(f);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("deletion", new Boolean(true));
+		mv.setViewName("WEB-INF/result.jsp");
+		return mv;
 		
 	}
-	
-	//initial index will have form to search by film id or keyword 
+
+	//initial index will have form to search by film id or keyword
 
 	//User story 1 Call DAO  view film details  and display error message if film not found
 	//Controller method- controller needs to implement DAO  DONE
-	
+
 	//User story 2 User chooses to add new film. JSP shows form to input film details     --
 	// In DAO do insert method to save the created film. Failure will show err message to user
 	//handle year out of range
-	
-	
+
+
 	//User Story 3 user retrieves a film, they have the option of deleting it. --
 	//If they delete the film, it is removed from the database.
 	//If the delete fails (such as, due to child records), the user is informed of this.
-	
+
 	//User Story 4
 	//When a user retrieves a film, they have the option of editing it. If they choose this, all the film's current properties are displayed in a form
-	//, allowing them to change any property except the film's ID. When they submit the form, that film's record is updated in the database. 
+	//, allowing them to change any property except the film's ID. When they submit the form, that film's record is updated in the database.
 	//If the update fails, the user is informed of this.
-	
-	
+
+
 	//User Story 5
 	//A user can search for films by keyword/pattern in title or description. From the resulting list of films, the user can choose to update or delete a record.
-	
+
 	//User Story 6
 	//When a film's details are displayed, its actors and categories are also listed.
 
-
-	
-	
-	
-	
-	
 }

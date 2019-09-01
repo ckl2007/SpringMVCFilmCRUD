@@ -157,11 +157,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return keyval;
 	}
 
-	private String getCategories() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<Film> findFilmsByWord(String keyword) {
 		Film film = null;
 		List<Film> films = new ArrayList<>();
