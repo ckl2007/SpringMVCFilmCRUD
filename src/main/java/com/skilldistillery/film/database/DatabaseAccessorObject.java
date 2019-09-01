@@ -65,9 +65,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	public Film findCreatedFilmById(int filmId) {
 		Film film = null;
-		String sqltxt = "select film.id, film.title, film.description, film.release_year, language_id"
-				+", film.rental_duration, film.rental_rate, film.length, film.replacement_cost, film.rating"
-				+", film.special_features from film where id = ?";
+		String sqltxt = "select * from film where id = ?";
 		try (Connection conn = DriverManager.getConnection(URL, user, pass);
 				PreparedStatement stmt = conn.prepareStatement(sqltxt);) {
 			stmt.setInt(1, filmId);
@@ -334,19 +332,22 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 	}
 
-	public void deleteFilm(Film film) {
+	public void deleteFilm(int filmId) {
+		boolean deleteSuccess = false;
 		Connection conn = null;
 		String sqltxt = "DELETE FROM film WHERE id = ?";
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // Start transaction
 			PreparedStatement st = conn.prepareStatement(sqltxt, Statement.RETURN_GENERATED_KEYS);
+			st.setInt(1, filmId);
+			st.executeUpdate();
 			ResultSet keys = st.getGeneratedKeys();
 
 			if (keys.next()) {
 				System.out.println("ID: " + keys.getInt(1));
 			}
-
+			deleteSuccess = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			try {
@@ -354,6 +355,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			deleteSuccess = false;
 		} finally {
 			try {
 				conn.commit();
@@ -361,6 +363,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			System.out.println("Delete successful: "+ deleteSuccess);
 		}
 	}
 
