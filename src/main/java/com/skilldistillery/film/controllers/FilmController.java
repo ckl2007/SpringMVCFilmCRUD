@@ -19,21 +19,31 @@ public class FilmController {
 	@Autowired
 	DatabaseAccessor dao;
 	
-	//Might need to change from model object to set attribute
 	@RequestMapping(path="searchKeyword.do", params="keyword", method=RequestMethod.GET)
 	  public ModelAndView getFilmByKeyword(String keyword) {
-	    ModelAndView mv = new ModelAndView();
-	    List<Film> f = dao.findFilmsByWord(keyword);
+		ModelAndView mv = new ModelAndView();
+	    List<Film> f = dao.findCreatedFilmsByWord(keyword);
+	    System.out.println(f);
 	    mv.addObject("filmList", f);
 	    mv.setViewName("WEB-INF/result.jsp");
 	    return mv;
 	  }
 	
+	
+	
 	//Might need to change from model object to set attribute
 	@RequestMapping(path="searchID.do", params="IDsearch", method=RequestMethod.GET)
 	public ModelAndView getFilmById(int IDsearch) {
+		Film f = null;
+		if(IDsearch > 1000) {
+			f = dao.findCreatedFilmById(IDsearch);
+		}
+		else {
+			f = dao.findFilmById(IDsearch);			
+		}
+		
 		ModelAndView mv = new ModelAndView();
-		Film f = dao.findFilmById(IDsearch);
+		System.out.println(f);
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;

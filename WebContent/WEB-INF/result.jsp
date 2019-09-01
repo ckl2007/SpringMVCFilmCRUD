@@ -9,13 +9,19 @@
 <title>Search</title>
 </head>
 <body>
-
-	<c:choose>
+	<c:choose>	
+	<%-- <c:when test="${empty film}">Film not Found</c:when> --%>
+	
+	<c:when test="${film.id == 0}">Film not inserted into database</c:when>
 		<c:when test="${not empty film}">
 
 	${film}
 	<form method="get" action="editFilm.do">
 		<button type="submit">Edit Film Data</button>
+		<input type="hidden" name="id" value="${film.id }">
+	</form>
+	<form method="get" action="deleteFilm.do">
+		<button type="submit">Delete Film</button>
 		<input type="hidden" name="id" value="${film.id }">
 	</form>
 		</c:when>
@@ -25,6 +31,10 @@
 					<li>${film.title }</li>
 					<form method="get" action="editFilm.do">
 						<button type="submit">Edit Film Data</button>
+						<input type="hidden" name="id" value="${film.id }">
+					</form>
+					<form method="get" action="deleteFilm.do">
+						<button type="submit">Delete Film</button>
 						<input type="hidden" name="id" value="${film.id }">
 					</form>
 

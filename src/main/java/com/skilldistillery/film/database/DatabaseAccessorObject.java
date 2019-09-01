@@ -51,7 +51,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setReplacement_cost(rs.getDouble("replacement_cost"));
 				film.setRating(rs.getString("rating"));
 				film.setSpecial_features(rs.getString("special_features"));
-				film.setLanguage(rs.getString(5));
+				film.setLanguage(rs.getString("language.name"));
 				film.setCategory(rs.getString("category.name"));
 				film.setActors(findActorsByFilmId(filmId));
 //				film.setLocationsWithCondition(inventoryMaps(film.getId()));
@@ -63,6 +63,38 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return film;
 	}
 
+	public Film findCreatedFilmById(int filmId) {
+		Film film = null;
+		String sqltxt = "select film.id, film.title, film.description, film.release_year, language_id"
+				+", film.rental_duration, film.rental_rate, film.length, film.replacement_cost, film.rating"
+				+", film.special_features from film where id = ?";
+		try (Connection conn = DriverManager.getConnection(URL, user, pass);
+				PreparedStatement stmt = conn.prepareStatement(sqltxt);) {
+			stmt.setInt(1, filmId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				film = new Film(); // Create the object
+				// Here is our mapping of query columns to our object fields:
+				film.setId(rs.getInt("id"));
+				film.setTitle(rs.getString("title"));
+				film.setDescription(rs.getString("description"));
+				film.setRelease_year(rs.getInt("release_year"));
+				film.setRental_duration(rs.getInt("rental_duration"));
+				film.setRental_rate(rs.getDouble("rental_rate"));
+				film.setLength(rs.getInt("length"));
+				film.setReplacement_cost(rs.getDouble("replacement_cost"));
+				film.setRating(rs.getString("rating"));
+				film.setSpecial_features(rs.getString("special_features"));
+				film.setLanguage_id(rs.getInt("language_id"));
+//				film.setLocationsWithCondition(inventoryMaps(film.getId()));
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		return film;
+	}
+	
 //                  
 	public int addFilm(Film film) {
 		String sql = "insert into film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features) "
@@ -166,6 +198,43 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 			}
 
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		return films;
+	}
+	public List<Film> findCreatedFilmsByWord(String keyword) {
+		Film film = null;
+		List<Film> films = new ArrayList<>();
+		String sqltxt = "select film.id, film.title, film.description, film.release_year, language_id"
+				+", film.rental_duration, film.rental_rate, film.length, film.replacement_cost, film.rating"
+				+", film.special_features from film "
+				+ "where title like ? or description like ?";
+		try (Connection conn = DriverManager.getConnection(URL, user, pass);
+				PreparedStatement stmt = conn.prepareStatement(sqltxt);) {
+			stmt.setString(1, "%" + keyword + "%");
+			stmt.setString(2, "%" + keyword + "%");
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				film = new Film(); // Create the object
+				// Here is our mapping of query columns to our object fields:
+				film.setId(rs.getInt("id"));
+				film.setTitle(rs.getString("title"));
+				film.setDescription(rs.getString("description"));
+				film.setRelease_year(rs.getInt("release_year"));
+				film.setRental_duration(rs.getInt("rental_duration"));
+				film.setRental_rate(rs.getDouble("rental_rate"));
+				film.setLength(rs.getInt("length"));
+				film.setReplacement_cost(rs.getDouble("replacement_cost"));
+				film.setRating(rs.getString("rating"));
+				film.setSpecial_features(rs.getString("special_features"));
+				film.setLanguage(rs.getString("language_id"));
+//				film.setLocationsWithCondition(inventoryMaps(film.getId()));
+				films.add(film);
+				System.out.println(film);
+			}
+			
 		} catch (SQLException e) {
 			System.err.println(e);
 		}
