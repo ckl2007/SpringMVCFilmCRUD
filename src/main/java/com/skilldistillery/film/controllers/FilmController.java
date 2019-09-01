@@ -18,7 +18,7 @@ import com.skilldistillery.film.entities.Film;
 public class FilmController {
 	@Autowired
 	DatabaseAccessor dao;
-
+	
 	@RequestMapping(path="searchKeyword.do", params="keyword", method=RequestMethod.GET)
 	  public ModelAndView getFilmByKeyword(String keyword) {
 		ModelAndView mv = new ModelAndView();
@@ -28,23 +28,23 @@ public class FilmController {
 	    mv.setViewName("WEB-INF/result.jsp");
 	    return mv;
 	  }
-
-
-
+	
+	
+	
 	//Might need to change from model object to set attribute
 	@RequestMapping(path="searchID.do", params="IDsearch", method=RequestMethod.GET)
 	public ModelAndView getFilmById(int IDsearch) {
 		Film f = null;
-
+		
 		//User Created films start at 1k and user created films aren't fleshed out into the child tables
 		//To handle this we have a method specifically for searching created films
 		if(IDsearch > 1000) {
 			f = dao.findCreatedFilmById(IDsearch);
 		}
 		else {
-			f = dao.findFilmById(IDsearch);
+			f = dao.findFilmById(IDsearch);			
 		}
-
+		
 		ModelAndView mv = new ModelAndView();
 		System.out.println(f);
 		mv.addObject("film", f);
@@ -108,7 +108,7 @@ public class FilmController {
 		mv.addObject("deletion", new Boolean(true));
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
-
+		
 	}
 
 	//initial index will have form to search by film id or keyword
@@ -136,11 +136,5 @@ public class FilmController {
 
 	//User Story 6
 	//When a film's details are displayed, its actors and categories are also listed.
-
-
-
-
-
-
 
 }
