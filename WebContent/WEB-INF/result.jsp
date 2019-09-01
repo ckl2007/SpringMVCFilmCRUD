@@ -19,15 +19,15 @@
 
 	${film}<br>
 	<div class="btn-group" role="group">
-			<form method="get" action="viewDetails.do">
+			<form method="GET" action="viewDetails.do">
 				<button class="btn btn-secondary" type="submit">View Films Details</button>
 				<input type="hidden" name="id" value="${film.id }">
 			</form>
-			<form method="get" action="editFilm.do">
+			<form method="GET" action="editFilm.do">
 				<button class="btn btn-secondary" type="submit">Edit Film Data</button>
 				<input type="hidden" name="id" value="${film.id }">
 			</form>
-			<form method="get" action="deleteFilm.do">
+			<form method="POST" action="deleteFilm.do">
 				<button class="btn btn-secondary" type="submit">Delete Film</button>
 				<input type="hidden" name="id" value="${film.id }">
 			</form>
@@ -42,12 +42,12 @@
 						<button class="btn btn-secondary" type="submit">Edit Film Data</button>
 						<input type="hidden" name="id" value="${film.id }">
 					</form>
-					<form method="get" action="deleteFilm.do">
-						<button class="btn btn-secondary" type="submit">Delete Film</button>
-						<input type="hidden" name="id" value="${film.id }">
-					</form>
 					<form method="get" action="viewDetails.do">
 						<button class="btn btn-secondary" type="submit">View Films Details</button>
+						<input type="hidden" name="id" value="${film.id }">
+					</form>
+					<form method="POST" action="deleteFilm.do">
+						<button class="btn btn-secondary" type="submit">Delete Film</button>
 						<input type="hidden" name="id" value="${film.id }">
 					</form>
 					</div>

@@ -1,7 +1,6 @@
 package com.skilldistillery.film.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,25 +60,22 @@ public class FilmController {
 		return mv;
 	}
 
-//	@RequestMapping(path="filmAdded.do", method=RequestMethod.GET)
-//	public ModelAndView filmAdded(@ModelAttribute("newFilm")Film f) {
-//		ModelAndView mv = new ModelAndView();
-//		System.out.println(f);
-//		mv.addObject("film", f);
-//		mv.setViewName("WEB-INF/result.jsp");
-//		return mv;
-//
-//	}
-
-//		redir.addFlashAttribute("newFilm",f);
-	@RequestMapping(path="createFilm.do", method=RequestMethod.POST)
-	public ModelAndView createFilm(Film f) {
-		f.setId(dao.addFilm(f));
-		System.out.println(f);
+	@RequestMapping(path="filmAdded.do", method=RequestMethod.GET)
+	public ModelAndView filmAdded(@ModelAttribute("newFilm")Film f) {
 		ModelAndView mv = new ModelAndView();
+		System.out.println(f);
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
+
+	}
+
+	@RequestMapping(path="createFilm.do", method=RequestMethod.POST)
+	public String createFilm(Film f,RedirectAttributes redir) {
+		redir.addFlashAttribute("newFilm",f);
+		f.setId(dao.addFilm(f));
+		System.out.println(f);
+		return "redirect:filmAdded.do";
 	}
 	@RequestMapping(path="filmEdited.do", method=RequestMethod.POST)
 	public ModelAndView editedFilm(Film f) {
@@ -101,11 +97,15 @@ public class FilmController {
 		return mv;
 	}
 
-	@RequestMapping(path="deleteFilm.do", method=RequestMethod.DELETE)
+	@RequestMapping(path="deleteFilm.do", method=RequestMethod.POST)
 	public ModelAndView deleteFilm(Film f) {
-		dao.deleteFilm(f);
+//		System.out.println("Before the method" + f);
+//		System.out.println("before method id: " + f.getId());
+//		f =dao.findFilmById(f.getId());
+		dao.deleteFilm(f.getId());
+//		System.out.println("After the method " + f);
+//		System.out.println("AFter method id: " + f.getId());
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("deletion", new Boolean(true));
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
 		

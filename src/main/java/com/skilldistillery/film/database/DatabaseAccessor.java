@@ -1,6 +1,7 @@
 package com.skilldistillery.film.database;
 
 import java.util.List;
+
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 
@@ -18,5 +19,5 @@ public interface DatabaseAccessor {
 	public void updateFilm(Film f);
 	public Film findCreatedFilmById(int filmId);
 	public List<Film> findCreatedFilmsByWord(String keyword);
-	public void deleteFilm(Film film);
+	public void deleteFilm(int filmID);
 }

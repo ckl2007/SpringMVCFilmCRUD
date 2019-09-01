@@ -62,7 +62,7 @@ body {
 </head>
 <body>
 	<%-- <c:if test="${empty film }"> --%>
-	<form:form class="form-inline" action="filmEdited.do" method="PUT" modelAttribute="film">
+	<form:form class="form-inline" action="filmAdded.do" method="PUT" modelAttribute="film">
 		<input type='hidden' name='id' value='${film.id }'>
 		<br>
 
@@ -72,8 +72,7 @@ body {
 		<br />
 		<div class="form-group">
 		<form:label path="description">Description</form:label>
-		<textarea rows="2" cols="50">"${film.description }"</textarea>
-		<%-- <form:input path="description" value="${film.description }" / --%>
+		<form:input path="description" value="${film.description }" />
 		<form:errors path="description" />
 		<br /></div>
 		<form:label path="release_year">Release Year(1901 to 2155):</form:label>
@@ -121,7 +120,8 @@ body {
 				<form:errors path="replacement_cost" />
 			</div>
 		</div>
-		<br /> Rating:<select name='rating'>
+				<form:label path="rating"> Rating:</form:label>
+		<br /><select name='rating'>
 			<option value="G">G</option>
 			<option value="PG">PG</option>
 			<option value="PG13">PG13</option>
@@ -130,8 +130,8 @@ body {
 			</datalist>
 		</select>
 		<br>
-		<!-- <input type="hidden" list="categories" name="categories"> -->
-		Category:<select name='categories'>
+				<form:label path="replacement_cost">Category:</form:label>
+		<select name='categories'>
 			<option value="1" ${film.category_id == '1' ? 'checked' : ''}>Action</option>
 			<option value="2" ${film.category_id == '2' ? 'checked' : ''}>Animation</option>
 			<option value="3" ${film.category_id == '3' ? 'checked' : ''}>Children</option>

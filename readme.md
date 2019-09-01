@@ -24,3 +24,5 @@ Spring MVC Film CRUD builds on the previous week's Film Query application. Film 
 * Proper joins in mySQL
 * Syntax for JDBC's communication with the database
 * Following the interactions between the controller, JSPs, and the DAO
+* Debugging
+* BootStrap

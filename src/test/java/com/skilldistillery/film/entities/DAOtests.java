@@ -1,20 +1,15 @@
 package com.skilldistillery.film.entities;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.fail;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
+import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import com.skilldistillery.film.database.DatabaseAccessorObject;
 
@@ -100,6 +95,6 @@ class DAOtests {
 	void testDeleteFilm() {
 		DatabaseAccessorObject dao = new DatabaseAccessorObject();
 		dao.deleteFilm(1025);
-		
+
 	}
 }

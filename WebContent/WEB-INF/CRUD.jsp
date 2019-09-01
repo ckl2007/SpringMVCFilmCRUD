@@ -71,9 +71,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 		<form:errors path="title" />
 		<br />
 		<div class="form-group">
-		<form:label path="description">Description</form:label>
-		<textarea rows="2" cols="50">"${film.description }"</textarea>
-		<%-- <form:input path="description" value="${film.description }" / --%>
+	<form:label path="description">Description</form:label>
+		<form:input path="description" value="${film.description }" />
 		<form:errors path="description" />
 		<br /></div>
 		<form:label path="release_year">Release Year(1901 to 2155):</form:label>
@@ -85,17 +84,17 @@ body {font-family: Arial, Helvetica, sans-serif;}
 			<div class="form-group col-auto">
 				<form:label path="language_id">Language</form:label>
 				<br> <input type="radio" name="language_id" value="1"
-					${language == '1' ? 'checked' : ''}>English <br>
+					${language == '1' ? 'checked' : ' '}>English <br>
 				<input type="radio" name="language_id" value="2"
-					${language == '2' ? 'checked' : ''}>Italian <br>
+					${language == '2' ? 'checked' : ' '}>Italian <br>
 				<input type="radio" name="language_id" value="3"
-					${language == '3' ? 'checked' : ''}>Japanese <br>
+					${language == '3' ? 'checked' : ' '}>Japanese <br>
 				<input type="radio" name="language_id" value="4"
-					${language == '4' ? 'checked' : ''}>Mandarin <br>
+					${language == '4' ? 'checked' : ' '}>Mandarin <br>
 				<input type="radio" name="language_id" value="5"
-					${language == '5' ? 'checked' : ''}>French <br>
+					${language == '5' ? 'checked' : ' '}>French <br>
 				<input type="radio" name="language_id" value="6"
-					${language == '6' ? 'checked' : ''}>German 
+					${language == '6' ? 'checked' : ' '}>German 
 				<form:errors path="language_id" />
 			</div>
 
@@ -121,7 +120,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 				<form:errors path="replacement_cost" />
 			</div>
 		</div>
-		<br /> Rating:<select name='rating'>
+				<form:label path="rating">Rating:</form:label>
+		<br /> <select name='rating'>
 			<option value="G">G</option>
 			<option value="PG">PG</option>
 			<option value="PG13">PG13</option>
@@ -130,24 +130,24 @@ body {font-family: Arial, Helvetica, sans-serif;}
 			</datalist>
 		</select>
 		<br>
-		<!-- <input type="hidden" list="categories" name="categories"> -->
-		Category:<select name='categories'>
-			<option value="1" ${film.category_id == '1' ? 'checked' : ''}>Action</option>
-			<option value="2" ${film.category_id == '2' ? 'checked' : ''}>Animation</option>
-			<option value="3" ${film.category_id == '3' ? 'checked' : ''}>Children</option>
-			<option value="4" ${film.category_id == '4' ? 'checked' : ''}>Classics</option>
-			<option value="5" ${film.category_id == '5' ? 'checked' : ''}>Comedy</option>
-			<option value="6" ${film.category_id == '6' ? 'checked' : ''}>Documentary</option>
-			<option value="7" ${film.category_id == '7' ? 'checked' : ''}>Drama</option>
-			<option value="8" ${film.category_id == '8' ? 'checked' : ''}>Family</option>
-			<option value="9" ${film.category_id == '9' ? 'checked' : ''}>Foreign</option>
-			<option value="10" ${film.category_id == '10' ? 'checked' : ''}>Games</option>
-			<option value="11" ${film.category_id == '11' ? 'checked' : ''}>Horror</option>
-			<option value="12" ${film.category_id == '12' ? 'checked' : ''}>Music</option>
-			<option value="13" ${film.category_id == '13' ? 'checked' : ''}>New</option>
-			<option value="14" ${film.category_id == '14' ? 'checked' : ''}>Sci-Fi</option>
-			<option value="15" ${film.category_id == '15' ? 'checked' : ''}>Sports</option>
-			<option value="16" ${film.category_id == '16' ? 'checked' : ''}>Travel</option>
+		<form:label path="category_id">Category:</form:label>
+		<select name='category_id'>
+			<option value="1" ${film.category_id == '1' ? 'checked' : ' '}>Action</option>
+			<option value="2" ${film.category_id == '2' ? 'checked' : ' '}>Animation</option>
+			<option value="3" ${film.category_id == '3' ? 'checked' : ' '}>Children</option>
+			<option value="4" ${film.category_id == '4' ? 'checked' : ' '}>Classics</option>
+			<option value="5" ${film.category_id == '5' ? 'checked' : ' '}>Comedy</option>
+			<option value="6" ${film.category_id == '6' ? 'checked' : ' '}>Documentary</option>
+			<option value="7" ${film.category_id == '7' ? 'checked' : ' '}>Drama</option>
+			<option value="8" ${film.category_id == '8' ? 'checked' : ' '}>Family</option>
+			<option value="9" ${film.category_id == '9' ? 'checked' : ' '}>Foreign</option>
+			<option value="10" ${film.category_id == '10' ? 'checked' : ' '}>Games</option>
+			<option value="11" ${film.category_id == '11' ? 'checked' : ' '}>Horror</option>
+			<option value="12" ${film.category_id == '12' ? 'checked' : ' '}>Music</option>
+			<option value="13" ${film.category_id == '13' ? 'checked' : ' '}>New</option>
+			<option value="14" ${film.category_id == '14' ? 'checked' : ' '}>Sci-Fi</option>
+			<option value="15" ${film.category_id == '15' ? 'checked' : ' '}>Sports</option>
+			<option value="16" ${film.category_id == '16' ? 'checked' : ' '}>Travel</option>
 			</datalist>
 		</select>
 		<form:label path="special_features">Special Features:</form:label>

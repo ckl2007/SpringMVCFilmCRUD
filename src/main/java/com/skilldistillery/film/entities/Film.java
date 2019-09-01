@@ -163,18 +163,15 @@ public class Film {
 		return builder.toString();
 	}
 
+
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Film [id=").append(id).append(", title=").append(title).append(", description=")
-				.append(description).append(", release_year=").append(release_year).append(", language=")
-				.append(language).append(", rental_duration=").append(rental_duration).append(", rental_rate=")
-				.append(rental_rate).append(", length=").append(length).append(", replacement_cost=")
-				.append(replacement_cost).append(", rating=").append(rating).append(", special_features=")
-				.append(special_features).append(", actors=").append(actors).append(", category=").append(category)
-				.append("]\n\n");
-		return builder.toString();
-		//.append("\n\nLocations With Condition=").append( locationsWithCondition)
+		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", release_year=" + release_year
+				+ ", rental_duration=" + rental_duration + ", rental_rate=" + rental_rate + ", length=" + length
+				+ ", replacement_cost=" + replacement_cost + ", rating=" + rating + ", special_features="
+				+ special_features + ", actors=" + actors + ", language_id=" + language_id + ", category_id="
+				+ category_id + "]\n\n";
 	}
 
 	@Override
