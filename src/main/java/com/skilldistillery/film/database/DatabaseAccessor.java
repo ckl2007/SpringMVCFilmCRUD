@@ -16,5 +16,7 @@ public interface DatabaseAccessor {
 //	public Map<String, Double> filmReplacementCost();
 //	public void addActor(String fname, String lname);
 	public void updateFilm(Film f);
+	public Film findCreatedFilmById(int filmId);
+	public List<Film> findCreatedFilmsByWord(String keyword);
 
 }
