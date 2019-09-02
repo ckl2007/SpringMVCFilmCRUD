@@ -17,6 +17,25 @@
 body { 
     padding-top: 65px; 
 }
+blink {
+        animation: blinker 0.6s linear infinite;
+        color: #1c87c9;
+       }
+      @keyframes blinker {  
+        50% { opacity: 0; }
+       }
+       .blink-one {
+         animation: blinker-one 1s linear infinite;
+       }
+       @keyframes blinker-one {  
+         0% { opacity: 0; }
+       }
+       .blink-two {
+         animation: blinker-two 1.4s linear infinite;
+       }
+       @keyframes blinker-two {  
+         100% { opacity: 0; }
+       }
 </style>
 <title>Results</title>
 </head>
@@ -106,6 +125,7 @@ body {
 		<c:when test="${not empty deletedStatus}">
 		${deletedStatus }
 		</c:when>
+		<c:otherwise><div class="text-center"><h1><blink>No Results</blink></h1></div></c:otherwise>
 	</c:choose>
 	
 </body>
