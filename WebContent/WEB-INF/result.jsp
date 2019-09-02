@@ -108,7 +108,7 @@ body {
 			</ul>
 		</c:when>
 		<c:when test="${not empty deletedStatus}">
-		Film Successfully Deleted
+		${deletedStatus }
 		</c:when>
 	</c:choose>
 	

@@ -330,7 +330,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 	}
 	@Override
-	public Boolean deleteFilm(int filmId) {
+	public String deleteFilm(int filmId) {
 		boolean deleteSuccess = false;
 		Connection conn = null;
 		String sqltxt = "DELETE FROM film WHERE id = ?";
@@ -361,8 +361,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			System.out.println("Delete successful: "+ deleteSuccess);
-		}return deleteSuccess;
+		}
+		String status = "Delete status: "+ deleteSuccess;
+		return status;
 	}
 
 

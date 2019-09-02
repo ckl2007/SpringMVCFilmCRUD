@@ -131,7 +131,7 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "filmDeleted.do", method = RequestMethod.GET)
-	public ModelAndView filmDeleted(@ModelAttribute("status") Boolean status) {
+	public ModelAndView filmDeleted(@ModelAttribute("status") String status) {
 		ModelAndView mv = new ModelAndView();
 //		System.out.println("confirmation of film deletion" + status);
 		mv.addObject("deletedStatus", status);
