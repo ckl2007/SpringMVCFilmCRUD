@@ -50,8 +50,16 @@ body {
 		<%-- <c:when test="${empty film}">Film not Found</c:when> --%>
 
 		<c:when test="${not empty film}">
-
-	${film}<br>
+	<br>
+	<h5>${film.title}</h5>
+	${film.rating}, ${film.release_year}, ${film.language}, ${film.category}
+	<br><strong>Running Time:</strong> ${film.length} minutes<br><strong>Cost per checkout:</strong> $${film.rental_rate} 
+	<strong>Max Checkout:</strong> ${film.rental_duration} days
+	<br> <strong>Special Features:</strong> ${film.special_features} 
+	<br><strong>Summary:</strong> ${film.description} <br>
+	<strong>Cast:</strong> ${film.actors}
+	<br>
+	<strong>Replacement Cost:</strong> $${film.replacement_cost}
 
 			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 			<div class="btn-group mr-2" role="group" aria-label="First group">
