@@ -62,7 +62,7 @@ body {
 </head>
 <body>
 	<%-- <c:if test="${empty film }"> --%>
-	<form:form class="form-inline" action="filmAdded.do" method="PUT" modelAttribute="film">
+	<form:form class="form-inline" action="createFilm.do" method="POST" modelAttribute="film">
 		<input type='hidden' name='id' value='${film.id }'>
 		<br>
 
