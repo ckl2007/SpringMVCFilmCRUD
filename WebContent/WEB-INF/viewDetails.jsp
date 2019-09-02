@@ -49,10 +49,9 @@ body {
 	<c:choose>
 		<%-- <c:when test="${empty film}">Film not Found</c:when> --%>
 
-		<c:when test="${film.id == 0}">Film not inserted into database</c:when>
 		<c:when test="${not empty film}">
 
-	${film.title}<br>
+	${film}<br>
 
 			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 			<div class="btn-group mr-2" role="group" aria-label="First group">
@@ -78,38 +77,7 @@ body {
 			</div>
 
 		</c:when>
-		<c:when test="${not empty filmList}">
-			<ul>
-				<c:forEach var="film" items="${filmList }">
-					<li>${film.title }</li>
-					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-			<div class="btn-group mr-2" role="group" aria-label="First group">
-			<form method="get" action="editFilm.do">
-				<button class="btn btn-secondary" type="submit">Edit Film
-					Data</button>
-				<input type="hidden" name="id" value="${film.id }">
-			</form>
-			</div>
-			<div class="btn-group mr-2" role="group" aria-label="Second group">
-			<form method="get" action="viewDetails.do">
-				<button class="btn btn-success" type="submit">View Films
-					Details</button>
-				<input type="hidden" name="id" value="${film.id }">
-			</form>
-			</div>
-			<div class="btn-group" role="group" aria-label="Third group">
-			<form method="POST" action="deleteFilm.do">
-				<button class="btn btn-danger" type="submit">Delete Film</button>
-				<input type="hidden" name="id" value="${film.id }">
-			</form>
-			</div>
-			</div>
-				</c:forEach>
-			</ul>
-		</c:when>
-		<c:when test="${not empty deletedStatus}">
-		Film Successfully Deleted
-		</c:when>
+		
 	</c:choose>
 	
 </body>
