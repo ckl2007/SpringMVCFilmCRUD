@@ -30,9 +30,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public Film findFilmById(int filmId) {
 		Film film = null;
-		String sqltxt = "select film.id, film.title, film.description, film.release_year, language.name"
+		String sqltxt = "select film.id, film.title, film.description, film.release_year, language.name, film.language_id"
 				+ ", film.rental_duration, film.rental_rate, film.length, film.replacement_cost, film.rating"
-				+ ", film.special_features, category.name from film JOIN film_category on film.id = film_category.film_id "
+				+ ", film.special_features, category.name, film_category.category_id from film JOIN film_category on film.id = film_category.film_id "
 				+ "JOIN language on film.language_id = language.id JOIN category on film_category.category_id = category.id "
 				+ "where film.id = ?";
 		try (Connection conn = DriverManager.getConnection(URL, user, pass);
@@ -54,6 +54,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setSpecial_features(rs.getString("special_features"));
 				film.setLanguage(rs.getString("language.name"));
 				film.setCategory(rs.getString("category.name"));
+				film.setLanguage_id(Integer.parseInt(rs.getString("language_id")));
+				film.setCategory_id(Integer.parseInt(rs.getString("category_id")));
 				film.setActors(findActorsByFilmId(filmId));
 //				film.setLocationsWithCondition(inventoryMaps(film.getId()));
 			}
