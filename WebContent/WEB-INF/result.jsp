@@ -51,8 +51,12 @@ body {
 
 		<c:when test="${film.id == 0}">Film not inserted into database</c:when>
 		<c:when test="${not empty film}">
+	<br>
 
-	${film}<br>
+	${film}
+	
+	
+	<br>
 
 			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 			<div class="btn-group mr-2" role="group" aria-label="First group">
