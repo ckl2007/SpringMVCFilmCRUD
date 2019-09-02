@@ -7,11 +7,14 @@
 <html>
 <head>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
 	font-family: Arial, Helvetica, sans-serif;
+	padding-top: 65px;
 }
 
 * {
@@ -57,12 +60,34 @@ body {
 		align-items: stretch;
 	}
 }
+
 </style>
-<title>Search</title>
+<title>Create A Film</title>
 </head>
+
+<nav class="navbar fixed-top navbar-light bg-light"> <a
+	href="index.html"><button class="btn btn-primary">
+		<i class="fa fa-home"></i> Home
+	</button></a>
+<form action="searchKeyword.do" method="GET">
+	Search by keyword:<br> <input type="text" name="keyword"
+		maxlength="10"> <input type="submit" value="Search" />
+</form>
+<form action="searchID.do" method="GET">
+	Search by ID:<br> <input type="number" Min='1' name="IDsearch">
+	<input type="submit" value="Search" />
+</form>
+<form action="creationForm.do" method="GET">
+	<br> <input type="submit" value="Create New Film" />
+</form>
+<!-- <a class="navbar-brand" href="#">
+    <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+  </a> --> </nav>
+
 <body>
 	<%-- <c:if test="${empty film }"> --%>
-	<form:form class="form-inline" action="createFilm.do" method="POST" modelAttribute="film">
+	<form:form class="form-inline" action="createFilm.do" method="POST"
+		modelAttribute="film">
 		<input type='hidden' name='id' value='${film.id }'>
 		<br>
 
@@ -71,10 +96,11 @@ body {
 		<form:errors path="title" />
 		<br />
 		<div class="form-group">
-		<form:label path="description">Description</form:label>
-		<form:input path="description" value="${film.description }" />
-		<form:errors path="description" />
-		<br /></div>
+			<form:label path="description">Description</form:label>
+			<form:input path="description" value="${film.description }" />
+			<form:errors path="description" />
+			<br />
+		</div>
 		<form:label path="release_year">Release Year(1901 to 2155):</form:label>
 		<form:input type="number" min='1901' max='2155' path="release_year"
 			value="${film.release_year }" />
@@ -84,17 +110,17 @@ body {
 			<div class="form-group col-auto">
 				<form:label path="language_id">Language</form:label>
 				<br> <input type="radio" name="language_id" value="1"
-					${language == '1' ? 'checked' : ''}>English <br>
-				<input type="radio" name="language_id" value="2"
-					${language == '2' ? 'checked' : ''}>Italian <br>
-				<input type="radio" name="language_id" value="3"
-					${language == '3' ? 'checked' : ''}>Japanese <br>
-				<input type="radio" name="language_id" value="4"
-					${language == '4' ? 'checked' : ''}>Mandarin <br>
-				<input type="radio" name="language_id" value="5"
-					${language == '5' ? 'checked' : ''}>French <br>
-				<input type="radio" name="language_id" value="6"
-					${language == '6' ? 'checked' : ''}>German 
+					${language == '1' ? 'checked' : ''}>English <br> <input
+					type="radio" name="language_id" value="2"
+					${language == '2' ? 'checked' : ''}>Italian <br> <input
+					type="radio" name="language_id" value="3"
+					${language == '3' ? 'checked' : ''}>Japanese <br> <input
+					type="radio" name="language_id" value="4"
+					${language == '4' ? 'checked' : ''}>Mandarin <br> <input
+					type="radio" name="language_id" value="5"
+					${language == '5' ? 'checked' : ''}>French <br> <input
+					type="radio" name="language_id" value="6"
+					${language == '6' ? 'checked' : ''}>German
 				<form:errors path="language_id" />
 			</div>
 
@@ -120,8 +146,9 @@ body {
 				<form:errors path="replacement_cost" />
 			</div>
 		</div>
-				<form:label path="rating"> Rating:</form:label>
-		<br /><select name='rating'>
+		<form:label path="rating"> Rating:</form:label>
+		<br />
+		<select name='rating'>
 			<option value="G">G</option>
 			<option value="PG">PG</option>
 			<option value="PG13">PG13</option>
@@ -130,7 +157,7 @@ body {
 			</datalist>
 		</select>
 		<br>
-				<form:label path="replacement_cost">Category:</form:label>
+		<form:label path="replacement_cost">Category:</form:label>
 		<select name='categories'>
 			<option value="1" ${film.category_id == '1' ? 'checked' : ''}>Action</option>
 			<option value="2" ${film.category_id == '2' ? 'checked' : ''}>Animation</option>
@@ -155,7 +182,7 @@ body {
 			value="${film.special_features }" />
 		<form:errors path="special_features" />
 		<br>
-		
+
 		<input type="hidden" name="id" value="${film.id }">
 		<button type='submit'>Submit</button>
 	</form:form>

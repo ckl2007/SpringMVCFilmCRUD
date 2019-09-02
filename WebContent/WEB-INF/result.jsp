@@ -18,31 +18,27 @@ body {
     padding-top: 65px; 
 }
 </style>
-<title>Search</title>
+<title>Results</title>
 </head>
 
-<nav class="navbar fixed-top navbar-light bg-light">
-<a href="index.html"><button class="btn btn-primary">
-			<i class="fa fa-home"></i> Home
-		</button></a>
-		<form action="searchKeyword.do" method="GET">
-	Search by keyword:<br>
-		<input type="text" name="keyword" maxlength="10" >
-		<input type="submit" value="Search" />
-	</form>
-	<form action="searchID.do" method="GET">
-	Search by ID:<br>
-		<input type="number" Min='1' name="IDsearch">
-		<input type="submit" value="Search" />
-	</form>
-	<form action="creationForm.do" method="GET">
-	<br>
-	<input type="submit" value="Create New Film" />
-	</form>
-  <!-- <a class="navbar-brand" href="#">
+<nav class="navbar fixed-top navbar-light bg-light"> <a
+	href="index.html"><button class="btn btn-primary">
+		<i class="fa fa-home"></i> Home
+	</button></a>
+<form action="searchKeyword.do" method="GET">
+	Search by keyword:<br> <input type="text" name="keyword"
+		maxlength="10"> <input type="submit" value="Search" />
+</form>
+<form action="searchID.do" method="GET">
+	Search by ID:<br> <input type="number" Min='1' name="IDsearch">
+	<input type="submit" value="Search" />
+</form>
+<form action="creationForm.do" method="GET">
+	<br> <input type="submit" value="Create New Film" />
+</form>
+<!-- <a class="navbar-brand" href="#">
     <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
-  </a> -->
-</nav>
+  </a> --> </nav>
 
 <body>
 
