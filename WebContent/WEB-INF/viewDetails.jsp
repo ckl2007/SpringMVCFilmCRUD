@@ -18,7 +18,7 @@ body {
     padding-top: 65px; 
 }
 </style>
-<title>Search</title>
+<title>${film.title}</title>
 </head>
 
 <nav class="navbar fixed-top navbar-light bg-light">
