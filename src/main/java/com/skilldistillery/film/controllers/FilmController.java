@@ -71,11 +71,15 @@ public class FilmController {
 	}
 
 	@RequestMapping(path="createFilm.do", method=RequestMethod.POST)
-	public String createFilm(Film f,RedirectAttributes redir) {
-		redir.addFlashAttribute("newFilm",f);
+//	public ModelAndView createFilm(Film f,RedirectAttributes redir) {
+	public ModelAndView createFilm(Film f) {
+//		redir.addFlashAttribute("newFilm",f);
 		f.setId(dao.addFilm(f));
 		System.out.println(f);
-		return "redirect:filmAdded.do";
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/result.jsp");
+//		return "redirect:filmAdded.do";
+		return mv;
 	}
 	@RequestMapping(path="filmEdited.do", method=RequestMethod.POST)
 	public ModelAndView editedFilm(Film f) {
@@ -98,17 +102,27 @@ public class FilmController {
 	}
 
 	@RequestMapping(path="deleteFilm.do", method=RequestMethod.POST)
-	public ModelAndView deleteFilm(Film f) {
+	public String deleteFilm(Film f, RedirectAttributes redir) {
 //		System.out.println("Before the method" + f);
 //		System.out.println("before method id: " + f.getId());
 //		f =dao.findFilmById(f.getId());
-		dao.deleteFilm(f.getId());
+		redir.addFlashAttribute("status",dao.deleteFilm(f.getId()));
 //		System.out.println("After the method " + f);
 //		System.out.println("AFter method id: " + f.getId());
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("WEB-INF/result.jsp");
+		return "redirect:filmDeleted.do";
+		
+	}
+	
+	@RequestMapping(path="filmDeleted.do", method=RequestMethod.GET)
+	public ModelAndView filmDeleted(@ModelAttribute("status")Boolean status) {
 		ModelAndView mv = new ModelAndView();
+		System.out.println(status);
+		mv.addObject("deletedStatus", status);
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
-		
+
 	}
 
 	//initial index will have form to search by film id or keyword
