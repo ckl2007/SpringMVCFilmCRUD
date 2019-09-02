@@ -32,7 +32,7 @@ body {
 	</form>
 	<form action="searchID.do" method="GET">
 	Search by ID:<br>
-		<input type="number" Min='1' name="IDsearch">
+		<input type="number" Min='1' name="IDsearch" required>
 		<input type="submit" value="Search" />
 	</form>
 	<form action="creationForm.do" method="GET">

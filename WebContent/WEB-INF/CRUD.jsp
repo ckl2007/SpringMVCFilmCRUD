@@ -112,7 +112,7 @@ body {
 				<div class="form-group col-auto">
 					<form:label path="language_id">Language</form:label>
 					<br> <input type="radio" name="language_id" value="1"
-						${language == '1' ? 'checked' : ' '}>English <br> <input
+						${language == '1' ? 'checked' : ' '} required>English <br> <input
 						type="radio" name="language_id" value="2"
 						${language == '2' ? 'checked' : ' '}>Italian <br> <input
 						type="radio" name="language_id" value="3"
