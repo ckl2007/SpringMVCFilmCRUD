@@ -31,11 +31,11 @@ public class FilmController {
 	// Might need to change from model object to set attribute
 	@RequestMapping(path = "searchID.do", params = "IDsearch", method = RequestMethod.GET)
 	public ModelAndView getFilmById(int IDsearch) {
-		Film f = null;
 
 		// User Created films start at 1k and user created films aren't fleshed out into
 		// the child tables
 		// To handle this we have a method specifically for searching created films
+		Film f = null;
 		if (IDsearch > 1000) {
 			f = dao.findCreatedFilmById(IDsearch);
 		} else {
@@ -43,7 +43,7 @@ public class FilmController {
 		}
 
 		ModelAndView mv = new ModelAndView();
-		System.out.println(f);
+		System.out.println("Inside of search by ID method f= " + f);
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
@@ -55,6 +55,21 @@ public class FilmController {
 		Film f = new Film();
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/addFilm.jsp");
+		return mv;
+	}
+	
+	@RequestMapping(path = "viewDetails.do", method = RequestMethod.GET)
+	public ModelAndView viewDetails(Film f) {
+//		System.out.println("view details method f =" + f);
+		int IDsearch = f.getId();
+		if (IDsearch > 1000) {
+			f = dao.findCreatedFilmById(IDsearch);
+		} else {
+			f = dao.findFilmById(IDsearch);
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("film", f);
+		mv.setViewName("WEB-INF/viewDetails.jsp");
 		return mv;
 	}
 
