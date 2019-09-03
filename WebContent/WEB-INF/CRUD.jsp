@@ -93,62 +93,64 @@ body {
 			<input type='hidden' name='id' value='${film.id }'>
 			<br>
 
-			<form:label path="title">Title:</form:label>
-			<form:input path="title" name="title" value="${film.title }" />
+			<form:label path="title"> Title: </form:label>
+			<form:input path="title" name="title" value="${film.title }" required="true"/>
 			<form:errors path="title" />
 			<br />
 			<div class="form-group">
-				<form:label path="description">Description</form:label>
+				<form:label path="description"> Description </form:label>
 				<form:input path="description" value="${film.description }" />
 				<form:errors path="description" />
 				<br />
 			</div>
-			<form:label path="release_year">Release Year(1901 to 2155):</form:label>
+			<form:label path="release_year"> Release Year(1901 to 2155): </form:label>
 			<form:input type="number" min='1901' max='2155' path="release_year"
 				value="${film.release_year }" />
 			<form:errors path="release_year" />
 			<br />
 			<div class="form-row align-items-center">
 				<div class="form-group col-auto">
-					<form:label path="language_id">Language</form:label>
+					<form:label path="language_id"> Language: </form:label>
 					<br> <input type="radio" name="language_id" value="1"
-						${film.language_id == '1' ? 'checked' : ' '} required>English <br> <input
-						type="radio" name="language_id" value="2"
-						${film.language_id == '2' ? 'checked' : ' '}>Italian <br> <input
-						type="radio" name="language_id" value="3"
-						${film.language_id == '3' ? 'checked' : ' '}>Japanese <br> <input
-						type="radio" name="language_id" value="4"
-						${film.language_id == '4' ? 'checked' : ' '}>Mandarin <br> <input
-						type="radio" name="language_id" value="5"
-						${film.language_id == '5' ? 'checked' : ' '}>French <br> <input
-						type="radio" name="language_id" value="6"
+						${film.language_id == '1' ? 'checked' : ' '} required>English
+					<br> <input type="radio" name="language_id" value="2"
+						${film.language_id == '2' ? 'checked' : ' '}>Italian <br>
+					<input type="radio" name="language_id" value="3"
+						${film.language_id == '3' ? 'checked' : ' '}>Japanese <br>
+					<input type="radio" name="language_id" value="4"
+						${film.language_id == '4' ? 'checked' : ' '}>Mandarin <br>
+					<input type="radio" name="language_id" value="5"
+						${film.language_id == '5' ? 'checked' : ' '}>French <br>
+					<input type="radio" name="language_id" value="6"
 						${film.language_id == '6' ? 'checked' : ' '}>German
 					<form:errors path="language_id" />
 				</div>
-
+				<br>
 				<div class="form-group col-auto">
 					<br> <br>
-					<form:label path="rental_duration">Rental Duration(Days):</form:label>
+					<form:label path="rental_duration"> Rental Duration(Days): </form:label>
 					<form:input type="number" min='1' max='10' path="rental_duration"
 						value="${film.rental_duration }" />
 					<form:errors path="rental_duration" />
 					<br>
-					<form:label path="rental_rate">Rental Rate</form:label>
+					<form:label path="rental_rate"> Rental Rate ($0.00) </form:label>
 					<form:input type="number" min="0.00" step="0.01" path="rental_rate"
 						value="${film.rental_rate }" />
 					<form:errors path="rental_rate" />
-					<br>
-					<form:label path="length">Length</form:label>
-					<form:input type="time" path="length" value="${film.length }" />
+				</div>
+				<br>
+				<div class="form-group col-auto">
+					<form:label path="length"> Length (minutes): </form:label>
+					<form:input type="number" path="length" value="${film.length }" />
 					<form:errors path="length" />
 					<br>
-					<form:label path="replacement_cost">Replacement Cost:</form:label>
+					<form:label path="replacement_cost"> Replacement Cost ($0.00): </form:label>
 					<form:input type="number" min="0.00" step="0.01"
 						path="replacement_cost" value="${film.replacement_cost }" />
 					<form:errors path="replacement_cost" />
 				</div>
 			</div>
-			<form:label path="rating">Rating:</form:label>
+			<form:label path="rating"> Rating: </form:label>
 			<br />
 			<select name='rating'>
 				<option value="G" ${film.rating == 'G' ? 'selected' : ' '}>G</option>
@@ -159,7 +161,7 @@ body {
 				</datalist>
 			</select>
 			<br>
-			<form:label path="category_id">Category:</form:label>
+			<form:label path="category_id"> Category: </form:label>
 			<select name='category_id'>
 				<option value="1" ${film.category_id == '1' ? 'selected' : ' '}>Action</option>
 				<option value="2" ${film.category_id == '2' ? 'selected' : ' '}>Animation</option>
@@ -179,7 +181,7 @@ body {
 				<option value="16" ${film.category_id == '16' ? 'selected' : ' '}>Travel</option>
 				</datalist>
 			</select>
-			<form:label path="special_features">Special Features:</form:label>
+			<form:label path="special_features"> Special Features: </form:label>
 			<form:input type="text" path="special_features"
 				value="${film.special_features }" />
 			<form:errors path="special_features" />
