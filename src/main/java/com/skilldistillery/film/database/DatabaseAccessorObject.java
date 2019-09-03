@@ -331,18 +331,17 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public String deleteFilm(int filmId) {
 		boolean deleteSuccess = false;
 		Connection conn = null;
-		String sqltxt = "DELETE FROM film WHERE id = ?";
+		String sqltxt = "DELETE FROM film_category WHERE film_id = ?";
+		String sqltxt2 = "DELETE FROM film WHERE id = ?";
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // Start transaction
 			PreparedStatement st = conn.prepareStatement(sqltxt, Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, filmId);
 			st.executeUpdate();
-			ResultSet keys = st.getGeneratedKeys();
-
-			if (keys.next()) {
-				System.out.println("ID: " + keys.getInt(1));
-			}
+			st = conn.prepareStatement(sqltxt2, Statement.RETURN_GENERATED_KEYS);
+			st.setInt(1, filmId);
+			st.executeUpdate();
 			deleteSuccess = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
