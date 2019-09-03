@@ -228,7 +228,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setLanguage(rs.getString("language_id"));
 //				film.setLocationsWithCondition(inventoryMaps(film.getId()));
 				films.add(film);
-				System.out.println(film);
 			}
 			
 		} catch (SQLException e) {
@@ -312,10 +311,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			if (keys.next()) {
 				System.out.println("ID: " + keys.getInt(1));
 			}
-//			System.out.println("inside update film in DAO" + film);
 		} catch (SQLException e) {
 			e.printStackTrace();
-//			System.out.println("update failed");
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -323,7 +320,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			}
 		} finally {
 			try {
-//				System.out.println("inside of finally block");
 				conn.commit();
 				conn.close();
 			} catch (SQLException e) {
