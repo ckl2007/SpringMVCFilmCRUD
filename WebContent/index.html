@@ -9,36 +9,45 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="/MVCFilmSite/WebContent/index.html">
-<style type="text/css">
-body { 
-    padding-top: 65px; 
+
+<style>
+body {
+	padding-top: 120px;
 }
+
+.center, div {
+	text-align: center;
+}
+
+h5, p {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 </style>
+
+
 <title>Spring MVC Film CRUD</title>
 </head>
 
-<nav class="navbar fixed-top navbar-light bg-light">
-<a href="index.html"><button class="btn btn-primary">
-			<i class="fa fa-home"></i> Home
-		</button></a>
-		<form action="searchKeyword.do" method="GET">
-	Search by keyword:<br>
-		<input type="text" name="keyword" maxlength="10" >
-		<input type="submit" value="Search" />
-	</form>
-	<form action="searchID.do" method="GET">
-	Search by ID:<br>
-		<input type="number" Min='1' value='1' name="IDsearch" required>
-		<input type="submit" value="Search" />
-	</form>
-	<form action="creationForm.do" method="GET">
-	<br>
-	<input type="submit" value="Create New Film" />
-	</form>
-  <!-- <a class="navbar-brand" href="#">
+<nav class="navbar fixed-top navbar-light bg-light"> <a
+	href="index.html"><button class="btn btn-primary">
+		<i class="fa fa-home"></i> Home
+	</button></a>
+<form action="searchKeyword.do" method="GET">
+	Search by keyword:<br> <input type="text" name="keyword"
+		maxlength="10"> <input type="submit" value="Search" />
+</form>
+<form action="searchID.do" method="GET">
+	Search by ID:<br> <input type="number" Min='1' value='1'
+		name="IDsearch" required> <input type="submit" value="Search" />
+</form>
+<form action="creationForm.do" method="GET">
+	<br> <input type="submit" value="Create New Film" />
+</form>
+<!-- <a class="navbar-brand" href="#">
     <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
-  </a> -->
-</nav>
+  </a> --> </nav>
 
 <body>
 	<!-- <form action="searchKeyword.do" method="GET">
@@ -55,35 +64,48 @@ body {
 	<br>
 	<input type="submit" value="Create New Film" />
 	</form> -->
-	
-<h3>Spring MVC Film CRUD</h3>
-<em>Week 8 Team Homework at Skill Distillery</em>
-<br>
-<a href="https://github.com/ckl2007">Carl Lawson</a>, 
-<a href="https://github.com/blueohsix">Casey Asher</a>
-<br>
-<br>
-<H5>Overview</H5>
-Spring MVC Film CRUD builds on the previous week's Film Query application. Film Query ran in the console and Spring MVC Film CRUD runs in the browser. The user has three entry points into the program from index.html: search by keyword, search by film id, and adding a film to the database. Searching by keyword returns a list of films and gives the user the option of editing a film's data, deleting the film the database, or viewing the film's full details. Searching for a film by ID allows the user the same options for the single result returned. If a query, update, add, or delete fails or returns a null result, the user is notified with an appropriate message.
-<br><br>
-<h5>Technologies</h5>
-<ul>
-<li>Java</li>
-<li>CSS</li>
-<li>HTML</li>
-<li>Bootstrap</li>
-<li>JDBC</li>
-<li>Git</li>
-<li>MAMP</li>
-<li>Spring MVC</li>
-<li>MySQL Workbench</li>
-<li>Spring Tool Suite 4</li>
-</ul>
-<h5>Challenges</h5>
-<ul>
-<li>Proper joins in mySQL</li>
-<li>Syntax for JDBC's communication with the database</li>
-<li>Following the interactions between the controller, JSPs, and the DAO</li>
-</ul>	
+
+	<h3 class="center">Spring MVC Film CRUD</h3>
+	<div>
+	<em>Week 8 Team Homework at Skill Distillery</em>
+	<br>
+	<a href="https://github.com/ckl2007">Carl Lawson</a>,
+	<a href="https://github.com/blueohsix">Casey Asher</a>
+	</div>
+	<br>
+	<br>
+	<H5 class="center">Overview</H5>
+	<p>Spring MVC Film CRUD builds on the previous week's Film Query
+		application. Film Query ran in the console and Spring MVC Film CRUD
+		runs in the browser. The user has three entry points into the program
+		from index.html: search by keyword, search by film id, and adding a
+		film to the database. Searching by keyword returns a list of films and
+		gives the user the option of editing a film's data, deleting the film
+		the database, or viewing the film's full details. Searching for a film
+		by ID allows the user the same options for the single result returned.
+		If a query, update, add, or delete fails or returns a null result, the
+		user is notified with an appropriate message.</p>
+
+	<br>
+	<h5>Technologies</h5>
+	<ul>
+		<li>Java</li>
+		<li>CSS</li>
+		<li>HTML</li>
+		<li>Bootstrap</li>
+		<li>JDBC</li>
+		<li>Git</li>
+		<li>MAMP</li>
+		<li>Spring MVC</li>
+		<li>MySQL Workbench</li>
+		<li>Spring Tool Suite 4</li>
+	</ul>
+	<h5>Challenges</h5>
+	<ul>
+		<li>Proper joins in mySQL</li>
+		<li>Syntax for JDBC's communication with the database</li>
+		<li>Following the interactions between the controller, JSPs, and
+			the DAO</li>
+	</ul>
 </body>
 </html>
