@@ -167,7 +167,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				+ ", film.rental_duration, film.rental_rate, film.length, film.replacement_cost, film.rating"
 				+ ", film.special_features, category.name from film JOIN film_category on film.id = film_category.film_id "
 				+ "JOIN language on film.language_id = language.id JOIN category on film_category.category_id = category.id "
-				+ "where title like ? or description like ?";
+				+ "where title like ? or description like ?"; //OUTER IS THE SOLUTION: not learned yet
 		try (Connection conn = DriverManager.getConnection(URL, user, pass);
 				PreparedStatement stmt = conn.prepareStatement(sqltxt);) {
 			stmt.setString(1, "%" + keyword + "%");

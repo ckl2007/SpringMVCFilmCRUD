@@ -1,5 +1,6 @@
 ## Spring MVC Film CRUD
 ### Week 8 Team Homework at Skill Distillery
+[Live application hosted on AWS](http://3.13.155.249:8080/MVCFilmSite/index.html)
 
 ### Overview
 
