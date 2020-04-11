@@ -1,6 +1,6 @@
 ## Spring MVC Film CRUD
 ### Week 8 Team Homework at Skill Distillery
-[Live application hosted on AWS](http://www.caseyasher.info/apps/MVCFilmSite/)
+[Live application hosted on AWS](http://tomcat.caseyasher.info/apps/MVCFilmSite/)
 
 ### Overview
 
